@@ -1,3 +1,61 @@
-*{
-    border: 1px solid blue ;
+* {
+    font-family: Arial;
+
+}
+
+body {
+    margin: 0;
+}
+
+header {
+    background-color: red;
+    padding: 8px;
+    color: white;
+    max-width: 100%;
+    text-align: end;
+}
+
+nav {
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 35px;
+}
+
+header a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header a:hover {
+    color: #ffd700;
+}
+
+
+table {
+    border-style: none;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    background-color: red;
+    color: white;
+    padding: 5px 0;
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    text-align: center;
 }
