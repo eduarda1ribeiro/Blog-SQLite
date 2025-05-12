@@ -1,0 +1,85 @@
+* {
+    font-family: Arial;
+
+}
+
+body {
+    margin: 0;
+}
+
+header {
+    background-color: rgb(255, 119, 119);
+    padding: 8px;
+    color: white;
+    max-width: 100%;
+    text-align: end;
+}
+
+nav {
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 35px;
+}
+
+header a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header a:hover {
+    color: #ffd700;
+}
+
+
+table {
+    border-style: none;
+}
+
+table tr td{
+    text-align: end;
+    padding-left: 10px;
+}
+
+footer {
+    text-align: center;
+    background-color: rgb(158, 135, 135);
+    color: white;
+    padding: 5px 0;
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    text-align: center;
+}
+
+#cadastrar{
+    padding: 10px;
+    font-size: 14px;
+}
+
+#VoltarLogin{
+    padding: 10px;
+    font-size: 14px; 
+}
+
+button{ 
+    border: none;
+    padding: 8px;
+    background-color: rgb(16, 160, 196);
+    color: white;
+    border-radius: 5px;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: rgb(206, 162, 162);
+}

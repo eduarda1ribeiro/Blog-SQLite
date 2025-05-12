@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("../partials/head") %>
+
+<body>
+    <br>
+    <center>
+        <h1>PAGINA DE CADASTRO </h1>
+        <main>
+            <form action="/cadastro" method="post" class="formItens">
+        <table>
+            <tr>
+                <td>
+                    Login:
+                </td>
+                <td>
+                    <input type="text" name="username" id="username" placeholder="Digite seu nome de usuário">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Senha:
+                </td>
+                <td>
+                    <input type="password" name="password" id="password" placeholder="Digite sua senha">
+                </td>
+            </tr>
+        </table>
+
+        <br>
+        <br>
+        <button type="submit" id="btnCadastrar">CADASTRAR</button>
+            </form>
+        </main>
+    </center>
+    <br><br>
+    <a id="VoltarLogin" href="./login">Voltar ao Login</a>
+
+    <%- include("../partials/footer") %>
+</body>
+
+</html>
