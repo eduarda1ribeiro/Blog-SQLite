@@ -1,5 +1,6 @@
 const express = require("express");
 const session = require("express-session");
+const { get } = require("express/lib/response");
 const sqlite3 = require("sqlite3");
 
 
@@ -32,17 +33,17 @@ app.set('view engine', 'ejs');
 
 app.get("/", (req, res) => {
     console.log("GET /")
-    res.render("pages/index");
+    res.render("pages/index", { titulo: "Index" , req: req}); 
 })
 
 app.get("/sobre", (req, res) => {
     console.log("GET /sobre")
-    res.render("pages/sobre");
+    res.render("pages/sobre", { titulo: "Sobre" , req: req});
 })
 
 app.get("/login", (req, res) => {
     console.log("GET /login")
-    res.render("pages/login");
+    res.render("pages/login", { titulo: "Login" , req: req});
 })
 
 //Rota /login para processamento dos dados do formulário de LOGIN no cliente
@@ -60,9 +61,11 @@ app.post("/login", (req, res) => {
         //1. Verificar se o usuário existe
         console.log(JSON.stringify(row))
         if (row) {
+            req.session.loggedin = true;
+            req.session.username = username;
             res.redirect("/dashboard")
         } else {
-            res.send("Usuário Inválido")
+            res.redirect("/usuario_incorreto")
         }
     })
     // res.render("pages/login")
@@ -70,8 +73,8 @@ app.post("/login", (req, res) => {
 
 app.get("/cadastro", (req, res) => {
     console.log("GET /cadastro")
-    res.render("pages/cadastro");
-})
+    res.render("pages/cadastro", { titulo: "Cadastro" , req: req});
+});
 
 app.post("/cadastro", (req, res) => {
 
@@ -89,7 +92,7 @@ app.post("/cadastro", (req, res) => {
         console.log(JSON.stringify(row))
         if (row) {
             console.log(`Usuario ${username} já cadastrado`)
-            res.send("Este usuário já existe")
+            res.redirect("usuario_cadastrado")
         } else {
             db.get(query2, [username, password], (err, row) => {
 
@@ -98,7 +101,7 @@ app.post("/cadastro", (req, res) => {
                 //1. Verificar se o usuário existe
                 console.log(JSON.stringify(row))
                 console.log(`Usuário ${username} cadastrado com sucesso`)
-                res.redirect("/login")
+                res.redirect("/cadastro_concluido")
             })
         }
 
@@ -114,22 +117,39 @@ app.get("/logout", (req, res) => {
 
 app.get("/dashboard", (req, res) => {
     console.log("GET /dashboard")
-
-    if (req.session.loggedin) {
-        const query = "SELECT    * FROM users";
-        db.all(query, [], (err, row) => {
-            if (err) throw err;
-            console.log(JSON.stringify(row));
-            //Renderiza a pagina dashboard com a lista de usuario coletada de BD pelo select
-            res.render("pages/dashboard")
-
-
-        }
-        
-        )
+    //res.render("./pages/dashboard", {titulo: "Dashboard"});
+    //Listar todos os usurios
+    if(req.session.loggedin){
+    const query = "SELECT * FROM users";
+    db.all(query, [], (err, row) => {
+        if (err) throw err;
+        console.log(JSON.stringify(row));
+        res.render("pages/dashboard", { titulo: "Tabela de usuários", dados: row, req: req });
+    })
+    } else {
+        res.redirect("/nao_autorizado")
     }
-    res.render("pages/dashboard");
+});
+      app.get("/nao_autorizado", (req, res) => {
+    res.render("./pages/nao_autorizado", { titulo: "Usuario não autorizado", req: req });
+    console.log("GET /nao_autorizado");
 })
+      app.get("/usuario_cadastrado", (req, res) => {
+    res.render("./pages/usuario_cadastrado", { titulo: "Usuario autorizado", req: req });
+    console.log("GET /usuario_cadastrado");
+})
+      app.get("/usuario_incorreto", (req, res) => {
+    res.render("./pages/usuario_incorreto", { titulo: "Usuario incorreto", req: req });
+    console.log("GET /usuario_incorreto");
+})
+      app.get("/cadastro_concluido", (req, res) => {
+    res.render("./pages/cadastro_concluido", { titulo: "Cadastro Concluido", req: req });
+    console.log("GET /cadastro_concluido");
+})
+      app.use('/{*erro}', (req, res) => {
+  
+  res.status(404).render('pages/erro', { titulo: "ERRO 404", req: req, msg: "404" });
+});
 
 app.listen(PORT, () => {
     console.log(`Servidor sendo excexutado na porta ${PORT}`)
