@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="PT-BR">
+    <link rel="stylesheet" href="./static/styles.css">
+    <link rel="icon" href="static/login.png">
+    <title>LOGIN</title>
 
 <%- include("../partials/head") %>
 
 <body>
     <%- include("../partials/menu") %>
-    <br>
     <center>
-        <h1>LOGIN</h1>
+        <h1>FAZER LOGIN </h1>
         <main>
             <form action="/login" method="post" class="formItens">
         <table>
@@ -36,8 +38,12 @@
         </main>
     </center>
     <br><br>
-    <a id="cadastrar" href="./cadastro">Não Tenho Login</a>
-    <%- include("../partials/footer") %>
+    <a href="./cadastro">
+        <button type="submit">Não tenho login</button>
+    </a>
+   
 </body>
-
+<%- include("../partials/footer") %>
 </html>
+//footer la em baixo
+//cor dos botoes

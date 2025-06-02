@@ -1,16 +1,31 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="PT-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="icon" href="static/incorreto.png">
+    <title>NEGADO</title>
 </head>
-
 <body>
-    
-
-    <h1>Você não possui uma conta, Cadastre-se! </h1><br> 
-    <a href="/cadastro">Clique aqui para se cadastrar</a> <br>
+    <main>
+        <center>
+            <h2 style="text-align: center; margin-bottom: 20px;">Você já está cadastrado?</h2>
+            <div class="formItens">
+                <center>
+                    <form action="/login" method="get">
+                        <button type="submit">Sim</button>
+                        <img src='./static/like.png' />
+                    </form> <br><br>
+                    <center>
+                        <form action="/cadastro" method="get">
+                            <button type="submit">Não</button>
+                            <img src='./static/dislike.png' />
+                    </center>
+                    </form>
+            </div>
+    </main>
 </body>
+
 </html>
+<%- include("../partials/footer") %>

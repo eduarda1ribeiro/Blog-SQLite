@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="PT-BR">
+    <link rel="stylesheet" href="./static/styles.css">
+    <link rel="icon" href="static/jalogado.png">
+    <title>JÁ CADASTRADO</title>
 
-<%- include("../partials/head"); %> 
 <body>
     <%- include("../partials/menu"); %>
-    <central></central><h1>Você já possui uma conta, faça login!</h1> <br>
-    <a href="/login">CLIQUE PARA FAZER LOGIN</a> <br>
-    <h1>Não possui uma conta? Cadastre-se!</h1> 
-    <a href="/cadastro">CLIQUE PARA SE CADASTRAR</a> <br>
-    <%- include("../partials/footer"); %>
+    <center>
+    <central></central><h1>Você já possui uma conta, Faça Login!</h1> <br>
+    <a href="./login">
+        <button type="submit"> Fazer Login</button>
+    </a>
+</center>
 </body>
+<%- include("../partials/footer"); %>
+
 </html>
+//estilizar 
+
