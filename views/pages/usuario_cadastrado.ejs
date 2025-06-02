@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+
+<%- include("../partials/head"); %> 
 <body>
-    <h1>Você já possui uma conta, faça login!</h1> <br>
+    <%- include("../partials/menu"); %>
+    <central></central><h1>Você já possui uma conta, faça login!</h1> <br>
     <a href="/login">CLIQUE PARA FAZER LOGIN</a> <br>
+    <h1>Não possui uma conta? Cadastre-se!</h1> 
+    <a href="/cadastro">CLIQUE PARA SE CADASTRAR</a> <br>
+    <%- include("../partials/footer"); %>
 </body>
 </html>
