@@ -2,11 +2,18 @@ const express = require("express");
 const session = require("express-session");
 const { get } = require("express/lib/response");
 const sqlite3 = require("sqlite3");
-//const bodyParser = require('body-parser');
+const helmet = require("helmet");
+const cors = require("cors");
+const bodyParser = require('body-parser');
 
 
 const app = express(); //Armazena as chamadas e propriedades da biblioteca EXPRESS
-
+app.use(helmet())
+app.use(cors({
+       origin: "https://google.com.br"
+}))
+app.use(bodyParser.json({ limit: '2mb'  
+}))
 const PORT = 8000; //configura a porta TCP do express
 
 //Conexão com o Banco de Dados
@@ -206,7 +213,6 @@ app.get("/dashboard", (req, res) => {
   
   res.status(404).render('pages/erro', { titulo: "ERRO 404", req: req, msg: "404" });
 });
-
 app.listen(PORT, () => {
     console.log(`Servidor sendo excexutado na porta ${PORT}`)
     console.log(__dirname + "\\static")

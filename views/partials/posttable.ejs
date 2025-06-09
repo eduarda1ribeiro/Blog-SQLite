@@ -8,12 +8,18 @@
     </tr>
   </thead>
   <tbody>
-    <% let i; for(i=0; i<dados.length; i++) { %>
-    <tr>
-      <td><%= dados[i].titulo %></td>
-      <td><%= dados[i].conteudo %></td>
-      <td><%= dados[i].data_criacao %></td>
-    </tr>
+    <% if (dados.length > 0) { %>
+      <% for(let i=0; i<dados.length; i++) { %>
+        <tr>
+          <td><%= dados[i].titulo %></td>
+          <td><%= dados[i].conteudo %></td>
+          <td><%= dados[i].data_criacao %></td>
+        </tr>
+      <% } %>
+    <% } else { %>
+      <tr>
+        <td colspan="3">Nenhum post encontrado.</td>
+      </tr>
     <% } %>
   </tbody>
 </table>
