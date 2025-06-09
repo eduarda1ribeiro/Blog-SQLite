@@ -149,12 +149,13 @@ app.post("/post_create", (req, res) => {
         console.log("Dados da postagem ", req.body);
         const { titulo, conteudo } = req.body;
         const data_criacao = new Date();
+        const data = data_criacao.toLocaleDateString();
         console.log("Username: ", data_criacao, "username:", req.session.username, "id_username:", req.session.id_username,);
         const query = "INSERT INTO posts (id_users, titulo, conteudo, data_criacao) VALUES (?, ?, ?, ?)";
-
-        db.get(query, [req.session.id_username, titulo, conteudo, data_criacao], (err, row) => {
+         
+        db.get(query, [req.session.id_username, titulo, conteudo, data], (err) => {
             if (err) throw err; //SE OCORRER O ERRO VÁ PARA O RESTO DO CÓDIGO
-            res.send("Post criado com sucesso");  
+            res.redirect("/"); 
         })
     } else {
         res.redirect("/nao_autorizado")
@@ -204,10 +205,6 @@ app.get("/dashboard", (req, res) => {
       app.use('/{*erro}', (req, res) => {
   
   res.status(404).render('pages/erro', { titulo: "ERRO 404", req: req, msg: "404" });
-});
-app.get("/postssemlogar", (req, res) => {
-    console.log("GET /postssemlogar")
-    res.render("pages/postssemlogar", { titulo: "Post" , req: req});
 });
 
 app.listen(PORT, () => {
