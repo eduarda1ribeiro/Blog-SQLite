@@ -39,7 +39,14 @@ app.set('view engine', 'ejs');
 
 app.get("/", (req, res) => {
     console.log("GET /")
-    res.render("pages/index", { titulo: "Index" , req: req}); 
+    //res.render("pages/index", { titulo: "Index" , req: req})
+    const query = "SELECT * FROM posts";
+    db.all(query, [], (err, row) => {
+        if (err) throw err;
+        console.log(JSON.stringify(row));
+                    //renderiza a pagina dashboard com a lista de usuario coletada do BD pelo SELECT 
+        res.render("pages/index", { titulo: "Tabela dos Posts", dados: row, req: req });
+    })
 })
 //rota '/sobre' para o metodo GET /
 app.get("/sobre", (req, res) => {
@@ -197,6 +204,10 @@ app.get("/dashboard", (req, res) => {
       app.use('/{*erro}', (req, res) => {
   
   res.status(404).render('pages/erro', { titulo: "ERRO 404", req: req, msg: "404" });
+});
+app.get("/postssemlogar", (req, res) => {
+    console.log("GET /postssemlogar")
+    res.render("pages/postssemlogar", { titulo: "Post" , req: req});
 });
 
 app.listen(PORT, () => {
