@@ -3,26 +3,25 @@
 
 <%- include("../partials/head") %>
 
-<body>
-    <%- include("../partials/menu") %>
-    <br>
-    <center>
-        <img src="/static/SENAI_logo.png" width="500px">
-    </center>
-    <center>
-        <h1>Bem-vindo ao BLOG do SENAI-Sumaré</h1>
-        <div>
-            <input type="search"/>
-            <ul>
-                {posttable.map(titulo => (
-                    <li key="dados.titulo">
-                        <p>{dados.titulo}</p>
-                      </li>
-                 ))};
-            </ul>
-        </div>
-        <%- include("../partials/posttable") %>
-    <%- include("../partials/footer") %>
-</body>
+    <body>
+        <%- include("../partials/menu") %>
+            <br>
+            <center>
+                <img src="/static/SENAI_logo.png" width="500px">
+            </center>
+            <center>
+                <h1>Bem-vindo ao BLOG do SENAI-Sumaré</h1>
+                <form method="GET" action="/" style="margin-bottom: 1px; text-align: center;">
+
+                    <input type="text" name="search" placeholder="Pesquisar postagens..." value="<%= search %>">
+
+                    <br> <br>
+
+                    <button type="submit">Buscar</button>
+
+                </form>
+                <%- include("../partials/posttable") %>
+                    <%- include("../partials/footer") %>
+    </body>
 
 </html>
