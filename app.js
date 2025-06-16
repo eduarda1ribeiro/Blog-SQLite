@@ -46,15 +46,45 @@ app.set('view engine', 'ejs');
 
 app.get("/", (req, res) => {
     console.log("GET /")
-    //res.render("pages/index", { titulo: "Index" , req: req})
-    const query = "SELECT * FROM posts";
-    db.all(query, [], (err, row) => {
-        if (err) throw err;
-        console.log(JSON.stringify(row));
-                    //renderiza a pagina dashboard com a lista de usuario coletada do BD pelo SELECT 
-        res.render("pages/index", { titulo: "Tabela dos Posts", dados: row, req: req });
-    })
-})
+    //BUSCAR POSTS
+    const search = req.query.search || ""; 
+
+    let query = "SELECT * FROM posts"; 
+
+    let params = []; 
+
+    if (search) { 
+
+        query = "SELECT * FROM posts WHERE titulo LIKE ? OR conteudo LIKE ?"; 
+
+        params = [`%${search}%`, `%${search}%`]; 
+    } 
+
+    db.all(query, params, (err, rows) => { 
+
+        if (err) { 
+            console.error("Erro ao buscar posts:", err.message); 
+            return res.send("Erro ao buscar posts"); 
+
+        } 
+
+        console.log(JSON.stringify(rows)); 
+
+        res.render("pages/index", { 
+
+            titulo: "Tabela dos Posts", 
+
+            dados: rows, 
+
+            search: search, 
+
+            req: req 
+
+        }); 
+
+    }); 
+
+}); 
 //rota '/sobre' para o metodo GET /
 app.get("/sobre", (req, res) => {
     console.log("GET /sobre")
