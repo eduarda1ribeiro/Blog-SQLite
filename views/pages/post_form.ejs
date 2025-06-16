@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-<%- include("../partials/head"); %> 
-
-
+<html lang="PT-BR">
+  <link rel="stylesheet" href="./static/styles.css">
+    <link rel="icon" href="static/post.png">
+    <title>CRIAR POST</title>
+</head>
 <body>
     <%- include("../partials/menu"); %>
     <main>
       <form action ="/post_create" method="post" >
-        <h1>Cadastro de Post</h1>
+        <center>
+        <h1> ADICIONAR UM POST </h1>
+      </center>
         <label for="titulo">Título:</label>
-        <input type="text" id="titulo" name="titulo" required><br>
-        <label for="conteudo">Conteúdo:</label>
+        <input type="text" id="titulo" name="titulo" required><br><br>
+        <label for="conteudo">Conteúdo:</label> <br>
         <textarea id="conteudo" name="conteudo" rows="10" cols="80" required></textarea><br><br>
-        <button type="submit">cadastrar postagem</button>
+        <button type="submit"> Cadastrar Postagem</button>
       </form>
     </main>
-    <%- include("../partials/footer"); %>
 </body>
+<%- include("../partials/footer"); %>
+
 </html>

@@ -2,11 +2,19 @@ const express = require("express");
 const session = require("express-session");
 const { get } = require("express/lib/response");
 const sqlite3 = require("sqlite3");
+const helmet = require("helmet");
+const cors = require("cors");
+const bodyParser = require('body-parser');
 
 
 const app = express(); //Armazena as chamadas e propriedades da biblioteca EXPRESS
-
-const PORT = 8000;
+app.use(helmet())
+app.use(cors({
+       origin: "https://google.com.br"
+}))
+app.use(bodyParser.json({ limit: '2mb'  
+}))
+const PORT = 8000; //configura a porta TCP do express
 
 //Conexão com o Banco de Dados
 const db = new sqlite3.Database("users.db");
@@ -26,20 +34,28 @@ app.use(
         saveUninitialized: true,
     })
 )
-
+//configura a rota '/static' para a pasta __dirname/static' do seu servidor
 app.use('/static', express.static(__dirname + '/static'))
 
 
 //Configuração do Express para processar requisições POST com BODY PARAMETERS
 app.use(express.urlencoded({ extended: true }));
 
+//rota '/sobre' para o metodo GET /
 app.set('view engine', 'ejs');
 
 app.get("/", (req, res) => {
     console.log("GET /")
-    res.render("pages/index", { titulo: "Index" , req: req}); 
+    //res.render("pages/index", { titulo: "Index" , req: req})
+    const query = "SELECT * FROM posts";
+    db.all(query, [], (err, row) => {
+        if (err) throw err;
+        console.log(JSON.stringify(row));
+                    //renderiza a pagina dashboard com a lista de usuario coletada do BD pelo SELECT 
+        res.render("pages/index", { titulo: "Tabela dos Posts", dados: row, req: req });
+    })
 })
-
+//rota '/sobre' para o metodo GET /
 app.get("/sobre", (req, res) => {
     console.log("GET /sobre")
     res.render("pages/sobre", { titulo: "Sobre" , req: req});
@@ -56,6 +72,8 @@ app.post("/login", (req, res) => {
     console.log("POST /login")
     console.log(JSON.stringify(req.body));
     const { username, password } = req.body;
+    if ( !username || !password ) 
+        return res.send("Por favor, preencha todos os campos.");
 
     const query = `SELECT * FROM users WHERE username=? AND password=?`;
 
@@ -85,7 +103,14 @@ app.post("/cadastro", (req, res) => {
 
     console.log("POST /cadastro")
     console.log(JSON.stringify(req.body));
-    const { username, password } = req.body;
+    const { username, password, confirmarSenha } = req.body;
+    if (!username || !password || !confirmarSenha) {
+        return res.send("Por favor, preencha todos os campos.");
+    }
+
+    if (password !== confirmarSenha) {
+        return res.send("As senhas não coincidem.");
+    }
 
     const query1 = `SELECT * FROM users WHERE username=?`;
     const query2 = `INSERT INTO users (username, password) VALUES (? , ?)`;
@@ -125,19 +150,19 @@ app.get("/post_create", (req, res) => {
 })
 app.post("/post_create", (req, res) => {
     console.log("POST /post_create")
+    //pegar dados da postagem: UserID, titulo postagem, conteúdo
+    //req.session.username
     if(req.session.loggedin) {
         console.log("Dados da postagem ", req.body);
         const { titulo, conteudo } = req.body;
         const data_criacao = new Date();
+        const data = data_criacao.toLocaleDateString();
         console.log("Username: ", data_criacao, "username:", req.session.username, "id_username:", req.session.id_username,);
         const query = "INSERT INTO posts (id_users, titulo, conteudo, data_criacao) VALUES (?, ?, ?, ?)";
-
-        db.get(query, [req.session.id_username, titulo, conteudo, data_criacao], (err, row) => {
+         
+        db.get(query, [req.session.id_username, titulo, conteudo, data], (err) => {
             if (err) throw err; //SE OCORRER O ERRO VÁ PARA O RESTO DO CÓDIGO
-            res.send("Post criado com sucesso");
-
-            //1. Verificar se o usuário existe
-            
+            res.redirect("/"); 
         })
     } else {
         res.redirect("/nao_autorizado")
@@ -154,19 +179,20 @@ app.get("/logout", (req, res) => {
 
 app.get("/dashboard", (req, res) => {
     console.log("GET /dashboard")
-    //res.render("./pages/dashboard", {titulo: "Dashboard"});
     //Listar todos os usurios
     if(req.session.loggedin){
     const query = "SELECT * FROM users";
     db.all(query, [], (err, row) => {
         if (err) throw err;
         console.log(JSON.stringify(row));
+                    //renderiza a pagina dashboard com a lista de usuario coletada do BD pelo SELECT 
         res.render("pages/dashboard", { titulo: "Tabela de usuários", dados: row, req: req });
     })
     } else {
         res.redirect("/nao_autorizado")
     }
 });
+//rota /login p/ processamento dos dados do formulario de LOGIN no cliente
       app.get("/nao_autorizado", (req, res) => {
     res.render("./pages/nao_autorizado", { titulo: "Usuario não autorizado", req: req });
     console.log("GET /nao_autorizado");
@@ -187,7 +213,6 @@ app.get("/dashboard", (req, res) => {
   
   res.status(404).render('pages/erro', { titulo: "ERRO 404", req: req, msg: "404" });
 });
-
 app.listen(PORT, () => {
     console.log(`Servidor sendo excexutado na porta ${PORT}`)
     console.log(__dirname + "\\static")

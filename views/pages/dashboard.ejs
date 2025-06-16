@@ -1,23 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<%- include("../partials/head") %>
+<html lang="PT-BR">
+    <link rel="stylesheet" href="./static/styles.css">
+    <link rel="icon" href="static/dashcadastro.png">
+    <title>DASHBOARD</title>
 
 <body>
-    <%- include("../partials/menu") %>
-    <br>
-
-
+    <%- include("../partials/menu"); %>
     <center>
-        <h1>PAGINA DE CADASTRO </h1>
+        <h1> CADASTRADOS </h1>
         <main>
-            <%- include("../partials/usertable") %>
-        <br>
-        <br>
+            <%- include("../partials/usertable"); %>
+    
         </main>
     </center>
-
-    <%- include("../partials/footer") %>
 </body>
-
+<%- include("../partials/footer") %>
 </html>
