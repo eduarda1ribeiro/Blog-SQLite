@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="PT-BR">
 
 <%- include("../partials/head") %>
 
@@ -7,17 +7,21 @@
     <%- include("../partials/menu") %>
     <br>
     <center>
-        <img src="/static/KENDRICK.LAMAR.HOME.jpg" width="500px">
-        
+        <img src="/static/SENAI_logo.png" width="500px">
     </center>
     <center>
-        <h1>Bem-vindo ao nosso site sobre o KENDRICK LAMAR</h1>
-        <h2>Você está na página inicial</h2>   
-        <br>
-        <p>Explore nossas seções para saber mais sobre a carreira, discografia e conquistas do artista.</p>
-        <p>Fique à vontade para navegar e descobrir tudo sobre o KENDRICK LAMAR!</p>
-     
-
+        <h1>Bem-vindo ao BLOG do SENAI-Sumaré</h1>
+        <div>
+            <input type="search"/>
+            <ul>
+                {posttable.map(titulo => (
+                    <li key="dados.titulo">
+                        <p>{dados.titulo}</p>
+                      </li>
+                 ))};
+            </ul>
+        </div>
+        <%- include("../partials/posttable") %>
     <%- include("../partials/footer") %>
 </body>
 

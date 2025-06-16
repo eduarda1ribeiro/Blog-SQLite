@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
-<%- include("../partials/head") %>
+<html lang="PT-BR">
+<link rel="stylesheet" href="./static/styles.css">
+<link rel="icon" href="static/incorreto.png">
+<title>INCORRETO</title>
+
 <body>
+    <center>
     <%- include("../partials/menu") %>
-    <h1>Usuario incorreto, faça login novamente! </h1><br>
-    <a href="/login">LOGIN</a> <br>
+    <h1>Usuário incorreto, faça login novamente! </h1><br>
+    <a href="./cadastro">
+        <button type="submit">LOGIN</button>
+    </a>
     <h1>Não possui uma conta? Cadastre-se!</h1>
-    <a href="/cadastro">CADASTRO</a> <br>
+    <a href="./cadastro">
+        <button type="submit">CADASTRAR</button>
+    </a>
     <%- include("../partials/footer") %>
+</center>
 </body>
 </html>
