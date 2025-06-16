@@ -11,16 +11,15 @@
     </center>
     <center>
         <h1>Bem-vindo ao BLOG do SENAI-Sumaré</h1>
-        <div>
-            <input type="search"/>
-            <ul>
-                {posttable.map(titulo => (
-                    <li key="dados.titulo">
-                        <p>{dados.titulo}</p>
-                      </li>
-                 ))};
-            </ul>
-        </div>
+      <form method="GET" action="/" style="margin-bottom: 1px; text-align: center;"> 
+
+            <input type="text" name="search" placeholder="Pesquisar postagens..." value="<%= search %>"> 
+
+            <br> <br> 
+
+            <button type="submit">Buscar</button> 
+
+            </form> 
         <%- include("../partials/posttable") %>
     <%- include("../partials/footer") %>
 </body>
