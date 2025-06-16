@@ -1,0 +1,49 @@
+PÁGINA INICIAL:
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("../partials/head") %>
+
+<body>
+    <%- include("../partials/menu") %>
+    <br>
+    <center>
+        <img src="/static/SENAI_logo.png" width="500px">
+        
+    </center>
+    <center>
+        <h1>Bem-vindo ao BLOG do SENAI</h1>
+        <h2>Você está na página inicial</h2>   
+        <br>
+        <p>Explore nossas seções para saber mais sobre o site.</p>
+        <p>Fique à vontade para navegar e ver as postagens do BLOG SENAI!</p>
+     
+
+    <%- include("../partials/footer") %>
+</body>
+
+</html>
+
+PÁGINA SOBRE:
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("../partials/head") %>
+
+<body>
+    <%- include("../partials/menu") %>
+    <br>
+    <center>
+        <h1>Sobre o site</h1>
+        <img src='/static/BLOG SENAI.jfif' width='550px' alt="OLA">
+        <div class="conteudo">
+        <a><p>O site do BLOG SENAI foi criado com o intuito de divulgar informações sobre a rede SENAI e <br> 
+        divulgar um pouco mais da escola.</p></a>
+        </div>
+    </center><br>
+     <br><br>
+</body>
+   
+<%- include("../partials/footer") %>
+
+</html>
